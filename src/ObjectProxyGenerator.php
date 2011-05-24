@@ -72,7 +72,11 @@ class ObjectProxyGenerator {
 
             // instantiation method
             $classSource .= 'function __instantiate() {'.OPNL;
-            $classSource .= '    $this->instance = $this->class->newInstanceArgs($this->arguments);'.OPNL;
+            $classSource .= '    if ($this->class->getConstructor() != null) {'.OPNL;
+            $classSource .= '        $this->instance = $this->class->newInstanceArgs($this->arguments);'.OPNL;
+            $classSource .= '    } else {'.OPNL;
+            $classSource .= '        $this->instance = $this->class->newInstance();'.OPNL;
+            $classSource .= '    }'.OPNL;
             $classSource .= '    $this->proxy->onConstruct($this->instance);'.OPNL;
             $classSource .= '}'.OPNL.OPNL;
 
