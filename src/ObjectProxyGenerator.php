@@ -45,7 +45,8 @@ class ObjectProxyGenerator {
             }
 
             // class definition
-            $classSource  = "class $proxyClassName extends $className {".OPNL.OPNL;
+            $classSource = $class->getDocComment();
+            $classSource .= "class $proxyClassName extends $className {".OPNL.OPNL;
 
             // fields
             $classSource .= 'private $proxy;'.OPNL;
@@ -102,6 +103,8 @@ class ObjectProxyGenerator {
                 if (substr($method->getName(), 0, 2) == '__') {
                     continue;
                 }
+
+                $classSource .= $method->getDocComment();
 
                 $methodKeywords = '';
 
